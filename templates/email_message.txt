@@ -1,0 +1,3 @@
+Hi {name},
+Your bill amounts to {amount}$ on {date},
+Thanks for purchasing with us.
