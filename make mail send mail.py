@@ -12,7 +12,7 @@ class MessageUser:
                         
                         self.base_message = """
 Hi {name},
-Your bill amounts to {amount}$ on {today.day}/{today.month}/{today.month},
+Your bill amounts to {amount}$ on {date},
 Thanks for purchasing with us.
                         """
 
@@ -21,9 +21,10 @@ Thanks for purchasing with us.
                         amount = '{0:.2f}'.format(amount)
 
                         today = datetime.date.today()
+                        date = "{today.day}/{today.month}/{today.year}".format(today=today)
                         detail = {"name":name,
                                           "amount":amount,
-                                          "today":today
+                                          "date":date
                                           }
                         if  email is not None:
                            detail['email'] = email
@@ -37,9 +38,9 @@ Thanks for purchasing with us.
                         for detail in self.user_details:
                                 name = detail['name']
                                 amount = detail['amount']
-                                today = detail['today']
+                                date = detail['date']
                                 base_msg = self.base_message
-                                new_msg = base_msg.format(name=name,amount=amount,today=today)
+                                new_msg = base_msg.format(name=name,amount=amount,date=date)
                                 email = detail.get("email",None)
                                 if email:
                                     user_email = {
@@ -59,8 +60,8 @@ Thanks for purchasing with us.
                             message = detail["message"]
                             host = "smtp.gmail.com"
                             port = 587
-                            username = "<Your email address>"
-                            password = "<Your password>"
+                            username = "ptt.trail.email@gmail.com"
+                            password = "Cognitive@24"
                             smtp_instance = SMTP(host,port)
                             from_email = username
                             to_email = email
@@ -84,7 +85,7 @@ Thanks for purchasing with us.
                                 #end the session connection
                                 smtp_instance.quit()
                             except:#handle any exception occured in the above process
-                                print(email +":An error occured while sending mail")
+                               print(email +":An error occured while sending mail")
                     print("Success!!!   All Mails are Sent :)")
                  
 
